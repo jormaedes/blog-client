@@ -1,19 +1,22 @@
-import { create } from 'zustand'
-import type { UserState, User } from '@/types/auth'
-import { getToken, getCurrentUser } from '@/lib/api';
+import { create } from "zustand";
+import type { UserState, User } from "@/types/auth";
+import { getToken, getCurrentUser } from "@/lib/api";
 
 const useAuthStore = create<UserState>((set, get) => ({
   user: null,
   isAuthenticated: false,
   isAuthLoading: true,
 
-  setUser: (userData: User) => set({
-    user: userData,
-    isAuthenticated: true,
-  }),
+  setUser: (userData: User) =>
+    set({
+      user: userData,
+      isAuthenticated: true,
+    }),
 
   logout: () => {
-    localStorage.removeItem("token");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+    }
 
     set({
       user: null,
@@ -25,7 +28,14 @@ const useAuthStore = create<UserState>((set, get) => ({
     try {
       const token = getToken();
 
-      if (!token) return;
+      if (!token) {
+        set({
+          user: null,
+          isAuthenticated: false,
+          isAuthLoading: false,
+        });
+        return;
+      }
 
       const payload = await getCurrentUser(token);
 
@@ -37,10 +47,10 @@ const useAuthStore = create<UserState>((set, get) => ({
       get().logout();
     } finally {
       set({
-        isAuthLoading: false
-      })
+        isAuthLoading: false,
+      });
     }
-  }
+  },
 }));
 
-export default useAuthStore
+export default useAuthStore;

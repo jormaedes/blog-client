@@ -9,43 +9,61 @@ import {
   LockKeyhole,
   UserRound,
   Sparkles,
-  CheckCircle2,
 } from "lucide-react";
-import { login } from "@/lib/api";
-import useAuthStore from "@/stores/authStore";
+import { signup } from "@/lib/api";
 
-function LoginForm() {
+function SignupForm() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const redirect = searchParams.get("redirect") || "/";
-  const registered = searchParams.get("registered") === "true";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!firstName.trim() || !lastName.trim() || !username.trim() || !password) {
+      setError("Por favor preenche todos os campos obrigatórios.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("A palavra-passe deve ter pelo menos 6 caracteres.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("As palavras-passe não coincidem.");
+      return;
+    }
 
     try {
       setIsLoading(true);
       setError("");
 
-      const data = await login(username.trim(), password);
+      await signup(
+        firstName.trim(),
+        lastName.trim(),
+        username.trim().toLowerCase(),
+        password
+      );
 
-      localStorage.setItem("token", data.token);
-      setUser(data.user);
-
-      router.push(redirect);
-      router.refresh();
+      // Redirect to login page with registered=true flag
+      const loginUrl = `/login?registered=true${
+        redirect !== "/" ? `&redirect=${encodeURIComponent(redirect)}` : ""
+      }`;
+      router.push(loginUrl);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError("Não foi possível iniciar sessão. Verifica as tuas credenciais.");
+        setError("Não foi possível criar a conta. Por favor tenta novamente.");
       }
     } finally {
       setIsLoading(false);
@@ -71,20 +89,20 @@ function LoginForm() {
           <div className="max-w-md">
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-950/40 px-3 py-1 text-xs font-semibold text-indigo-300">
               <Sparkles size={12} />
-              <span>Comunidade de Leitores</span>
+              <span>Registo de Leitor</span>
             </div>
 
             <h2 className="mt-4 text-3xl font-bold tracking-tight text-white xl:text-4xl">
-              Acede à tua conta para comentar e interagir.
+              Cria a tua conta e faz ouvir a tua voz.
             </h2>
 
             <p className="mt-4 text-sm leading-relaxed text-gray-400">
-              Lê artigos livremente e participa nas conversas mais interessantes da comunidade, deixando os teus gostos e opiniões.
+              Junta-te a milhares de leitores apaixonados por conhecimento. Cria a tua conta gratuita para comentar e interagir em todos os artigos.
             </p>
           </div>
 
           <p className="text-xs text-gray-500">
-            Editorial Blog &bull; Leitura aberta e livre para todos
+            Editorial Blog &bull; Comunidade aberta
           </p>
         </div>
       </section>
@@ -106,39 +124,76 @@ function LoginForm() {
 
           <div className="mb-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-white">
-              Iniciar sessão
+              Criar conta
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Introduz os teus dados para aceder à tua conta de leitor.
+              Preenche os dados abaixo para te registares como leitor.
             </p>
           </div>
 
-          {/* Registration success notice */}
-          {registered && (
-            <div className="mb-6 flex items-start gap-3 rounded-xl border border-green-200 bg-green-50/90 p-4 dark:border-green-900/50 dark:bg-green-950/30">
-              <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-green-600 dark:text-green-400" />
-              <div className="text-sm text-green-800 dark:text-green-300">
-                Conta criada com sucesso! Podes agora iniciar sessão.
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="firstName"
+                  className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300"
+                >
+                  Nome próprio
+                </label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  required
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    setError("");
+                  }}
+                  placeholder="ex: João"
+                  disabled={isLoading}
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="lastName"
+                  className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300"
+                >
+                  Apelido
+                </label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  required
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                    setError("");
+                  }}
+                  placeholder="ex: Silva"
+                  disabled={isLoading}
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                />
               </div>
             </div>
-          )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
-                htmlFor="username"
+                htmlFor="signup-username"
                 className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300"
               >
                 Nome de utilizador
               </label>
-
               <div className="relative">
                 <UserRound
                   size={18}
                   className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
                 <input
-                  id="username"
+                  id="signup-username"
                   name="username"
                   type="text"
                   required
@@ -150,38 +205,67 @@ function LoginForm() {
                   }}
                   placeholder="ex: joaosilva"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
                 />
               </div>
             </div>
 
             <div>
               <label
-                htmlFor="password"
+                htmlFor="signup-password"
                 className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300"
               >
-                Palavra-passe
+                Palavra-passe (mínimo 6 caracteres)
               </label>
-
               <div className="relative">
                 <LockKeyhole
                   size={18}
                   className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
                 <input
-                  id="password"
+                  id="signup-password"
                   name="password"
                   type="password"
                   required
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                     setError("");
                   }}
-                  placeholder="A tua palavra-passe"
+                  placeholder="Mínimo 6 caracteres"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300"
+              >
+                Confirmar palavra-passe
+              </label>
+              <div className="relative">
+                <LockKeyhole
+                  size={18}
+                  className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                />
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  autoComplete="new-password"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    setError("");
+                  }}
+                  placeholder="Repete a palavra-passe"
+                  disabled={isLoading}
+                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
                 />
               </div>
             </div>
@@ -199,19 +283,19 @@ function LoginForm() {
               disabled={isLoading}
               className="flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 text-sm font-semibold text-white shadow-sm shadow-indigo-600/20 transition-all hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <span>{isLoading ? "A iniciar sessão..." : "Iniciar sessão"}</span>
+              <span>{isLoading ? "A criar conta..." : "Criar conta de leitor"}</span>
               {!isLoading && <ArrowRight size={16} />}
             </button>
           </form>
 
           <div className="mt-8 space-y-3 text-center text-sm">
             <p className="text-gray-600 dark:text-gray-400">
-              Ainda não tens conta?{" "}
+              Já tens conta?{" "}
               <Link
-                href={`/signup${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
+                href={`/login${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
                 className="font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
               >
-                Criar uma conta
+                Iniciar sessão
               </Link>
             </p>
 
@@ -230,10 +314,10 @@ function LoginForm() {
   );
 }
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <Suspense fallback={<div className="min-h-screen animate-pulse bg-gray-50 dark:bg-gray-900" />}>
-      <LoginForm />
+      <SignupForm />
     </Suspense>
   );
 }

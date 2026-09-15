@@ -2,7 +2,7 @@ import type { LoginResponse, User } from "@/types/auth";
 import type { Post } from "@/types/post";
 import type { Comment, RecentComment } from "@/types/comment";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3300";
 
 export async function login(
   username: string,
@@ -15,26 +15,54 @@ export async function login(
     },
     body: JSON.stringify({
       username,
-      password
+      password,
     }),
   });
 
   if (!response.ok) {
-    throw new Error("Invalid credentials");
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.message || "Credenciais inválidas");
   }
 
   const data: LoginResponse = await response.json();
-
-  if (data.user.userType !== "AUTHOR") {
-    throw new Error(
-      "Only authors can access the admin application"
-    );
-  }
-
   return data;
 }
 
+export async function signup(
+  firstname: string,
+  lastname: string,
+  username: string,
+  password: string
+): Promise<{ message: string; user: User }> {
+  const response = await fetch(`${API_URL}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      firstname,
+      lastname,
+      username,
+      password,
+      user_type: "READER",
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    if (response.status === 409) {
+      throw new Error("Este nome de utilizador já se encontra em uso.");
+    }
+    throw new Error(
+      errorData?.message || "Ocorreu um erro ao criar a conta. Tenta novamente."
+    );
+  }
+
+  return response.json();
+}
+
 export function getToken(): string | null {
+  if (typeof window === "undefined") return null;
   return localStorage.getItem("token");
 }
 
@@ -46,36 +74,45 @@ export async function getCurrentUser(token: string): Promise<User> {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to get current user");
+    throw new Error("Não foi possível carregar o utilizador atual");
   }
 
   return response.json();
 }
 
-export async function getPosts(token: string): Promise<Post[]> {
+export async function getPosts(token?: string | null): Promise<Post[]> {
+  const headers: HeadersInit = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`${API_URL}/posts`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
+    method: "GET",
+    headers,
   });
 
   if (!response.ok) {
-    throw new Error("Failed to get all posts");
+    throw new Error("Falha ao carregar os artigos");
   }
 
   return response.json();
 }
 
-export async function getPost(postId: string, token: string): Promise<Post> {
+export async function getPost(postId: string, token?: string | null): Promise<Post> {
+  const headers: HeadersInit = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`${API_URL}/posts/${postId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers,
   });
 
   if (!response.ok) {
-    throw new Error("Failed to get post");
+    if (response.status === 404) {
+      throw new Error("Artigo não encontrado");
+    }
+    throw new Error("Falha ao carregar o artigo");
   }
 
   return response.json();
@@ -202,18 +239,21 @@ export async function getUsers(token: string): Promise<User[]> {
   return response.json();
 }
 
-export async function getComments(postId: string, token: string): Promise<Comment[]> {
-  const response = await fetch(
-    `${API_URL}/posts/${postId}/comments`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+export async function getComments(
+  postId: string,
+  token?: string | null
+): Promise<Comment[]> {
+  const headers: HeadersInit = {};
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${API_URL}/posts/${postId}/comments`, {
+    headers,
+  });
 
   if (!response.ok) {
-    throw new Error("Failed to get comments");
+    throw new Error("Falha ao carregar os comentários");
   }
 
   return response.json();

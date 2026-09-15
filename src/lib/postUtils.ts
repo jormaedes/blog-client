@@ -5,10 +5,13 @@
 
 export function extractFirstImage(content: string): string | null {
   if (!content) return null;
-  const match = content.match(/<img[^>]+src=["']([^"']+)["']/i);
-  if (match && match[1]) {
-    const src = match[1].trim();
-    if (src.length > 0) return src;
+  // Match the first <img> tag and extract its src attribute
+  const match = content.match(/<img[^>]*\bsrc\s*=\s*(?:["']([^"']+)["']|([^"'\s>]+))/i);
+  const src = match ? (match[1] || match[2]) : null;
+  
+  if (src) {
+    const cleaned = src.trim().replace(/&amp;/g, "&");
+    if (cleaned.length > 0) return cleaned;
   }
   return null;
 }

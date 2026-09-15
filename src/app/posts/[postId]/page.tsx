@@ -18,7 +18,6 @@ import CommentList from "@/components/CommentList";
 import CommentForm from "@/components/CommentForm";
 import PostLikeButton from "@/components/PostLikeButton";
 import {
-  extractFirstImage,
   formatDate,
   getReadingTime,
 } from "@/lib/postUtils";
@@ -154,7 +153,6 @@ export default function PostPage({ params }: PostPageProps) {
     );
   }
 
-  const coverImage = extractFirstImage(post.content);
   const readingTime = getReadingTime(post.content);
   const fullDate = formatDate(post.timestamp, true);
 
@@ -237,16 +235,6 @@ export default function PostPage({ params }: PostPageProps) {
             </button>
           </div>
         </header>
-
-        {/* Featured Banner Image (extracted from HTML content) */}
-        {coverImage && (
-          <div className="mb-10 overflow-hidden rounded-3xl border border-gray-200/60 shadow-lg dark:border-gray-800/80">
-            <div
-              className="relative aspect-[16/9] w-full bg-cover bg-center sm:aspect-[21/9]"
-              style={{ backgroundImage: `url(${coverImage})` }}
-            />
-          </div>
-        )}
 
         {/* Article HTML Content */}
         <main className="mb-12">

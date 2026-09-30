@@ -6,6 +6,7 @@ export default function PostContent({ content }: PostContentProps) {
   return (
     <article
       className="
+        post-content
         prose
         max-w-none
         wrap-break-word
@@ -93,7 +94,7 @@ export default function PostContent({ content }: PostContentProps) {
         dark:prose-invert
 
         dark:prose-headings:text-gray-100
-        dark:prose-p:text-gray-300
+        dark:prose-p:text-gray-200
         dark:prose-strong:text-gray-100
         dark:prose-a:text-[#df8064]
         dark:prose-blockquote:text-gray-400

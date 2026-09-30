@@ -20,3 +20,8 @@ body {
   background-color: #141614;
   color: #f0f0eb;
 }
+
+.dark .post-content [style*="color"],
+.dark .post-content font {
+  color: #e5e7eb !important;
+}

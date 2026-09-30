@@ -132,8 +132,8 @@ export default function PostPage({ params }: PostPageProps) {
   if (error || !post) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-dashed border-gray-200 bg-white/50 p-12 dark:border-gray-800 dark:bg-gray-900/30">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <div className="border-y border-gray-200 bg-white/40 p-10 dark:border-gray-800 dark:bg-[#191c19]">
+          <h1 className="font-serif text-3xl text-gray-950 dark:text-white">
             {error || "Artigo não encontrado"}
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -142,7 +142,7 @@ export default function PostPage({ params }: PostPageProps) {
           <div className="mt-6">
             <Link
               href="/posts"
-              className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+              className="inline-flex items-center gap-2 rounded-md bg-[#c2573a] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#a5452e]"
             >
               <ArrowLeft size={16} />
               <span>Ver todos os artigos</span>
@@ -174,7 +174,7 @@ export default function PostPage({ params }: PostPageProps) {
         <div className="mb-8">
           <Link
             href="/posts"
-            className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-[#a5452e] dark:text-gray-400 dark:hover:text-[#df8064]"
           >
             <ArrowLeft size={16} />
             <span>Voltar aos artigos</span>
@@ -183,8 +183,8 @@ export default function PostPage({ params }: PostPageProps) {
 
         {/* Article Header */}
         <header className="mb-10">
-          <div className="flex flex-wrap items-center gap-3 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-            <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 dark:bg-indigo-950/60">
+          <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-[#a5452e] dark:text-[#df8064]">
+            <span className="inline-flex items-center gap-1 border border-[#c2573a]/25 bg-[#f8eee9] px-2.5 py-1 dark:border-[#df8064]/25 dark:bg-[#38251f]">
               <Clock size={12} />
               {readingTime}
             </span>
@@ -194,18 +194,18 @@ export default function PostPage({ params }: PostPageProps) {
             </time>
           </div>
 
-          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white leading-[1.15]">
+          <h1 className="mt-5 font-serif text-4xl leading-[1.12] text-gray-950 sm:text-5xl lg:text-6xl dark:text-white">
             {post.title}
           </h1>
 
           {/* Author metadata bar */}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-b border-gray-200/80 pb-8 dark:border-gray-800">
+          <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 pb-7 dark:border-gray-800">
             <div className="flex items-center gap-3.5">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white shadow-sm shadow-indigo-600/20">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#c2573a] text-sm font-semibold text-white">
                 {authorInitials}
               </div>
               <div className="text-left">
-                <p className="text-sm font-bold text-gray-900 dark:text-white">
+                <p className="text-sm font-semibold text-gray-950 dark:text-white">
                   {authorFullName}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -219,7 +219,7 @@ export default function PostPage({ params }: PostPageProps) {
               type="button"
               onClick={handleShare}
               aria-label="Partilhar artigo"
-              className="inline-flex h-9 items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="inline-flex h-9 items-center gap-2 rounded-md border border-gray-300/80 bg-white px-3.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-gray-300 dark:hover:bg-gray-800"
             >
               {copied ? (
                 <>
@@ -242,7 +242,7 @@ export default function PostPage({ params }: PostPageProps) {
         </main>
 
         {/* Interaction Bar (Likes & Comments Count) */}
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6 dark:border-gray-800 dark:bg-gray-900/50">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-y border-gray-200 py-5 dark:border-gray-800">
           <div className="flex items-center gap-3">
             <PostLikeButton
               postId={post.id}
@@ -264,26 +264,26 @@ export default function PostPage({ params }: PostPageProps) {
           <button
             type="button"
             onClick={handleShare}
-            className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
+            className="text-xs font-semibold text-[#a5452e] hover:text-[#853b29] dark:text-[#df8064] dark:hover:text-[#f0987c]"
           >
             {copied ? "Link copiado!" : "Partilhar este artigo"}
           </button>
         </div>
 
         {/* Author Bio Card */}
-        <div className="mt-8 rounded-2xl border border-gray-200/80 bg-gray-50/70 p-6 sm:p-8 dark:border-gray-800 dark:bg-gray-900/30">
+        <div className="mt-8 border-b border-gray-200 py-6 dark:border-gray-800">
           <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-600 text-base font-bold text-white shadow-sm">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#c2573a] text-base font-semibold text-white">
               {authorInitials}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <Sparkles size={14} className="text-indigo-600 dark:text-indigo-400" />
-                <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                <Sparkles size={14} className="text-[#a5452e] dark:text-[#df8064]" />
+                <span className="text-xs font-semibold uppercase text-[#a5452e] dark:text-[#df8064]">
                   Sobre o Autor
                 </span>
               </div>
-              <h3 className="mt-1 text-base font-bold text-gray-900 dark:text-white">
+              <h3 className="mt-1 font-serif text-xl text-gray-950 dark:text-white">
                 {authorFullName}
               </h3>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -296,7 +296,7 @@ export default function PostPage({ params }: PostPageProps) {
         {/* Comments Section */}
         <section className="mt-12 sm:mt-16">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-white">
+            <h2 className="font-serif text-3xl text-gray-950 sm:text-4xl dark:text-white">
               Comentários ({comments.length})
             </h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">

@@ -112,8 +112,8 @@ export default function CommentList({
 
   if (comments.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-gray-200 bg-white/40 p-8 text-center sm:p-12 dark:border-gray-800 dark:bg-gray-900/20">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500">
+      <div className="border-y border-gray-200 bg-white/40 p-8 text-center sm:p-12 dark:border-gray-800 dark:bg-[#191c19]">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#f8eee9] text-[#a5452e] dark:bg-[#38251f] dark:text-[#df8064]">
           <MessageCircle size={22} />
         </div>
         <h3 className="mt-3.5 text-sm font-semibold text-gray-900 dark:text-white">
@@ -151,10 +151,10 @@ export default function CommentList({
           return (
             <article
               key={comment.id}
-              className="rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm transition-colors sm:p-6 dark:border-gray-800 dark:bg-gray-900/60"
+              className="border-b border-gray-200 py-5 transition-colors sm:py-6 dark:border-gray-800"
             >
               <div className="flex items-start gap-3.5">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f8eee9] text-xs font-semibold text-[#a5452e] dark:bg-[#38251f] dark:text-[#df8064]">
                   {initials}
                 </div>
 
@@ -180,7 +180,7 @@ export default function CommentList({
 
                     {/* Author badge if comment author is post author */}
                     {isPostAuthor && isOwner && (
-                      <span className="rounded-md bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300">
+                      <span className="bg-[#f8eee9] px-2 py-0.5 text-[10px] font-semibold text-[#a5452e] dark:bg-[#38251f] dark:text-[#df8064]">
                         Autor
                       </span>
                     )}
@@ -193,7 +193,7 @@ export default function CommentList({
                         onChange={(e) => setEditingContent(e.target.value)}
                         rows={3}
                         disabled={isSaving}
-                        className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50/50 p-3 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/60 dark:text-white dark:placeholder:text-gray-500"
+                        className="w-full resize-y rounded-md border border-gray-300/80 bg-[#faf9f6] p-3 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:bg-white focus:ring-2 focus:ring-[#c2573a]/15 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500"
                       />
 
                       <div className="mt-2.5 flex items-center gap-2">
@@ -201,7 +201,7 @@ export default function CommentList({
                           type="button"
                           onClick={() => handleUpdate(comment.id)}
                           disabled={isSaving || !editingContent.trim()}
-                          className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-indigo-600 px-3 text-xs font-semibold text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="inline-flex h-8 items-center gap-1.5 rounded-md bg-[#c2573a] px-3 text-xs font-semibold text-white transition-colors hover:bg-[#a5452e] disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {isSaving ? (
                             <Loader2 size={13} className="animate-spin" />
@@ -224,7 +224,7 @@ export default function CommentList({
                     </div>
                   ) : (
                     /* Render strictly as safe plain text with whitespace preservation */
-                    <p className="mt-2.5 whitespace-pre-wrap break-words text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+                    <p className="mt-2.5 whitespace-pre-wrap wrap-break-word text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                       {comment.content}
                     </p>
                   )}

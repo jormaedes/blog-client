@@ -57,7 +57,7 @@ export default function PostLikeButton({
         onClick={handleLike}
         disabled={isLoading}
         aria-label={likedByMe ? "Remover gosto do artigo" : "Gostar deste artigo"}
-        className={`inline-flex h-11 items-center gap-2.5 rounded-xl border px-4 text-sm font-semibold transition-all ${
+        className={`inline-flex h-11 items-center gap-2.5 rounded-md border px-4 text-sm font-semibold transition-colors ${
           likedByMe
             ? "border-red-200 bg-red-50/80 text-red-600 shadow-sm shadow-red-500/10 hover:bg-red-100 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-900/50"
             : "border-gray-200/90 bg-white text-gray-700 shadow-sm hover:border-red-200 hover:bg-red-50/50 hover:text-red-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-red-900/50 dark:hover:bg-red-950/30 dark:hover:text-red-400"

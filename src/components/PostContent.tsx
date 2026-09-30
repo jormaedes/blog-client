@@ -7,13 +7,13 @@ export default function PostContent({ content }: PostContentProps) {
     <article
       className="
         prose
-        prose-gray
         max-w-none
-        break-words
+        wrap-break-word
+        text-gray-700
 
-        prose-headings:font-semibold
-        prose-headings:tracking-tight
-        prose-headings:text-gray-900
+        prose-headings:font-serif
+        prose-headings:font-normal
+        prose-headings:text-gray-950
 
         prose-h1:mt-0
         prose-h1:mb-6
@@ -32,31 +32,35 @@ export default function PostContent({ content }: PostContentProps) {
         prose-h3:leading-tight
 
         prose-p:my-5
-        prose-p:leading-7
+        prose-p:font-serif
+        prose-p:leading-8
         prose-p:text-gray-700
 
         prose-a:font-medium
-        prose-a:text-indigo-600
+        prose-a:text-[#a5452e]
         prose-a:no-underline
         prose-a:hover:underline
 
         prose-strong:font-semibold
-        prose-strong:text-gray-900
+        prose-strong:text-gray-950
 
-        prose-blockquote:border-l-indigo-500
+        prose-blockquote:border-l-[#c2573a]
         prose-blockquote:text-gray-600
+        prose-blockquote:font-serif
+        prose-blockquote:text-xl
 
         prose-ul:my-6
         prose-ol:my-6
         prose-li:my-1
+        prose-li:font-serif
 
         prose-img:my-8
         prose-img:h-auto
         prose-img:max-w-full
-        prose-img:rounded-xl
+        prose-img:rounded-md
 
         prose-hr:my-10
-        prose-hr:border-gray-200
+        prose-hr:border-gray-300
 
         prose-code:rounded
         prose-code:bg-gray-100
@@ -71,13 +75,14 @@ export default function PostContent({ content }: PostContentProps) {
         prose-pre:my-8
         prose-pre:max-w-full
         prose-pre:overflow-x-auto
-        prose-pre:rounded-xl
+        prose-pre:rounded-md
         prose-pre:bg-gray-950
 
         prose-table:my-8
+        prose-table:text-sm
         prose-th:border
         prose-th:border-gray-200
-        prose-th:bg-gray-50
+        prose-th:bg-gray-100
         prose-th:px-4
         prose-th:py-3
         prose-td:border
@@ -90,9 +95,10 @@ export default function PostContent({ content }: PostContentProps) {
         dark:prose-headings:text-gray-100
         dark:prose-p:text-gray-300
         dark:prose-strong:text-gray-100
-        dark:prose-a:text-indigo-400
+        dark:prose-a:text-[#df8064]
         dark:prose-blockquote:text-gray-400
         dark:prose-hr:border-gray-800
+        dark:prose-blockquote:border-l-[#df8064]
 
         dark:prose-code:bg-gray-800
         dark:prose-code:text-gray-200

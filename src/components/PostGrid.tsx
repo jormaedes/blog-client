@@ -17,24 +17,17 @@ export default function PostGrid({
 }: PostGridProps) {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="grid grid-cols-1 gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12">
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <div
             key={i}
-            className="flex min-h-[380px] sm:min-h-[410px] flex-col justify-between rounded-2xl border border-gray-200/60 bg-gray-100 p-6 animate-pulse dark:border-gray-800 dark:bg-gray-900/60"
+            className="animate-pulse"
           >
-            <div className="flex justify-between">
-              <div className="h-6 w-24 rounded-full bg-gray-200 dark:bg-gray-800" />
-              <div className="h-6 w-16 rounded-full bg-gray-200 dark:bg-gray-800" />
-            </div>
-            <div className="space-y-3 pt-12">
-              <div className="h-6 w-3/4 rounded-lg bg-gray-200 dark:bg-gray-800" />
-              <div className="h-4 w-full rounded-md bg-gray-200 dark:bg-gray-800" />
-              <div className="h-4 w-5/6 rounded-md bg-gray-200 dark:bg-gray-800" />
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-200/40 dark:border-gray-800/40">
-                <div className="h-7 w-7 rounded-full bg-gray-200 dark:bg-gray-800" />
-                <div className="h-4 w-28 rounded bg-gray-200 dark:bg-gray-800" />
-              </div>
+            <div className="aspect-[16/10] rounded-md bg-gray-200 dark:bg-gray-800" />
+            <div className="space-y-3 pt-4">
+              <div className="h-3 w-24 rounded bg-gray-200 dark:bg-gray-800" />
+              <div className="h-6 w-3/4 rounded bg-gray-200 dark:bg-gray-800" />
+              <div className="h-4 w-full rounded bg-gray-200 dark:bg-gray-800" />
             </div>
           </div>
         ))}
@@ -44,11 +37,11 @@ export default function PostGrid({
 
   if (posts.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-gray-200 bg-white/50 px-6 py-16 text-center backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/30">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">
-          <BookOpen size={24} />
+      <div className="border-y border-gray-200 py-16 text-center dark:border-gray-800">
+        <div className="text-gray-500 dark:text-gray-400">
+          <BookOpen size={22} className="mx-auto" strokeWidth={1.5} />
         </div>
-        <h3 className="mt-4 text-base font-semibold text-gray-900 dark:text-white">
+        <h3 className="mt-4 font-serif text-xl text-gray-900 dark:text-white">
           {emptyTitle}
         </h3>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
@@ -59,7 +52,7 @@ export default function PostGrid({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+    <div className="grid grid-cols-1 gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12">
       {posts.map((post, index) => (
         <PostCard key={post.id} post={post} priority={index < 3} />
       ))}

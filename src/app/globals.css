@@ -9,14 +9,14 @@ body {
 }
 
 body {
-  background-color: #f8f9fb;
-  color: #17191c;
+  background-color: #faf9f6;
+  color: #20211f;
   transition:
     background-color 200ms ease,
     color 200ms ease;
 }
 
 .dark body {
-  background-color: #0f1115;
-  color: #f1f3f5;
+  background-color: #141614;
+  color: #f0f0eb;
 }

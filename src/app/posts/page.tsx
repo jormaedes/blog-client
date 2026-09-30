@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { BookOpen } from "lucide-react";
 import { getPosts, getToken } from "@/lib/api";
 import type { Post } from "@/types/post";
 import PostGrid from "@/components/PostGrid";
@@ -57,51 +56,47 @@ export default function PostsPage() {
   }, [filteredPosts, currentPage]);
 
   return (
-    <div className="min-h-screen py-10 sm:py-16">
+    <div className="min-h-screen py-10 sm:py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/80 bg-indigo-50/80 px-3.5 py-1 text-xs font-semibold text-indigo-700 dark:border-indigo-900/50 dark:bg-indigo-950/50 dark:text-indigo-300">
-            <BookOpen size={13} />
-            <span>Biblioteca de Artigos</span>
-          </div>
-
-          <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl dark:text-white">
-            Todos os artigos
-          </h1>
-
-          <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-400">
-            Navega por todos os artigos publicados, descobre novos conteúdos e aprofunda os teus conhecimentos.
+        <div className="mb-10 border-b border-gray-200 pb-8 sm:mb-12 sm:pb-10 dark:border-gray-800">
+          <p className="text-xs font-semibold uppercase text-[#a5452e] dark:text-[#df8064]">
+            Biblioteca editorial
           </p>
-
-          {/* Search bar */}
-          <div className="mt-8 max-w-lg">
-            <SearchBar
-              value={searchQuery}
-              onChange={handleSearchChange}
-              placeholder="Pesquisar artigos por título..."
-            />
+          <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h1 className="font-serif text-4xl leading-tight text-gray-950 sm:text-5xl dark:text-white">
+                Todos os artigos
+              </h1>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-gray-600 dark:text-gray-400">
+                Leituras, ideias e perspetivas para levares contigo.
+              </p>
+            </div>
+            <div className="w-full md:max-w-sm">
+              <SearchBar
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Pesquisar por título..."
+              />
+            </div>
+          </div>
+          <div className="mt-7 flex items-center justify-between border-t border-gray-200 pt-4 text-xs text-gray-500 dark:border-gray-800 dark:text-gray-400">
+            <span>Arquivo</span>
+            {!isLoading && (
+              <span>
+                {filteredPosts.length} {filteredPosts.length === 1 ? "artigo" : "artigos"}
+              </span>
+            )}
           </div>
         </div>
 
         {/* Error notification */}
         {error && (
-          <div className="mb-8 rounded-2xl border border-red-200 bg-red-50/90 p-5 text-center text-sm font-medium text-red-700 dark:border-red-950/60 dark:bg-red-950/30 dark:text-red-400">
+          <div className="mb-8 border-l-2 border-red-600 bg-red-50 p-4 text-sm text-red-700 dark:border-red-400 dark:bg-red-950/30 dark:text-red-400">
             {error}
           </div>
         )}
 
         {/* Results summary when searching */}
-        {!isLoading && searchQuery.trim() && (
-          <div className="mb-6 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-            <span>
-              {filteredPosts.length === 1
-                ? "1 artigo encontrado"
-                : `${filteredPosts.length} artigos encontrados`}
-            </span>
-          </div>
-        )}
-
         {/* Posts Grid */}
         <PostGrid
           posts={paginatedPosts}

@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-[#F8F9FB] text-[#17191C] antialiased selection:bg-indigo-500 selection:text-white dark:bg-[#0F1115] dark:text-[#F1F3F5]">
+      <body className="flex min-h-screen flex-col bg-[#FAF9F6] text-[#20211F] antialiased selection:bg-[#c2573a] selection:text-white dark:bg-[#141614] dark:text-[#F0F0EB]">
         <ThemeProvider>
           <AuthInitializer />
           <Header />

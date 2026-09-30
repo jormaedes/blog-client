@@ -25,7 +25,7 @@ export default function SearchBar({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label="Pesquisar artigos por título"
-        className="h-12 w-full rounded-2xl border border-gray-200/90 bg-white pl-11 pr-11 text-sm text-gray-900 shadow-sm outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:border-gray-800 dark:bg-gray-900/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-400/10"
+        className="h-11 w-full rounded-md border border-gray-300/80 bg-white pl-11 pr-11 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:ring-2 focus:ring-[#c2573a]/15 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500 dark:focus:border-[#df8064]"
       />
 
       {value && (

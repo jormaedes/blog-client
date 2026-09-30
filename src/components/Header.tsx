@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, LogOut, Menu, X, ArrowRight } from "lucide-react";
+import { LogOut, Menu, X, ArrowRight } from "lucide-react";
 import useAuthStore from "@/stores/authStore";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
@@ -56,41 +56,35 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="flex items-center gap-8">
-          <Link
-            href="/"
-            className="group flex items-center gap-2.5 focus:outline-none"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-md shadow-indigo-600/20 transition-transform duration-200 group-hover:scale-105 sm:h-10 sm:w-10">
-              <BookOpen size={18} className="sm:size-5" />
-            </div>
+          <Link href="/" className="group flex items-center focus:outline-none">
             <div className="flex flex-col">
-              <span className="text-lg font-bold tracking-tight text-gray-900 transition-colors group-hover:text-indigo-600 sm:text-xl dark:text-white dark:group-hover:text-indigo-400">
+              <span className="font-serif text-xl text-gray-950 transition-colors group-hover:text-[#a5452e] sm:text-2xl dark:text-white dark:group-hover:text-[#df8064]">
                 Editorial
               </span>
-              <span className="hidden text-[10px] font-medium tracking-widest uppercase text-gray-400 sm:block dark:text-gray-500">
+              <span className="hidden text-[10px] font-medium uppercase text-gray-500 sm:block dark:text-gray-400">
                 Blog dos Leitores
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden h-16 items-center gap-2 md:flex">
             <Link
               href="/"
-              className={`rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
+              className={`relative flex h-full items-center px-3 text-sm transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-left after:bg-[#c2573a] after:transition-transform ${
                 isActive("/")
-                  ? "bg-gray-100 text-indigo-600 dark:bg-gray-800/70 dark:text-indigo-400"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/40 dark:hover:text-white"
+                  ? "text-[#a5452e] after:scale-x-100 dark:text-[#df8064]"
+                  : "text-gray-600 after:scale-x-0 hover:text-gray-950 hover:after:scale-x-100 dark:text-gray-400 dark:hover:text-white"
               }`}
             >
               Início
             </Link>
             <Link
               href="/posts"
-              className={`rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
+              className={`relative flex h-full items-center px-3 text-sm transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-left after:bg-[#c2573a] after:transition-transform ${
                 isActive("/posts")
-                  ? "bg-gray-100 text-indigo-600 dark:bg-gray-800/70 dark:text-indigo-400"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/40 dark:hover:text-white"
+                  ? "text-[#a5452e] after:scale-x-100 dark:text-[#df8064]"
+                  : "text-gray-600 after:scale-x-0 hover:text-gray-950 hover:after:scale-x-100 dark:text-gray-400 dark:hover:text-white"
               }`}
             >
               Artigos
@@ -109,7 +103,7 @@ export default function Header() {
           ) : isAuthenticated && user ? (
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2.5 rounded-lg border border-gray-200/80 bg-gray-50/50 py-1.5 pl-2 pr-3 dark:border-gray-800 dark:bg-gray-900/50">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-600 text-xs font-semibold text-white">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#c2573a] text-xs font-semibold text-white">
                   {userInitials}
                 </div>
                 <div className="flex flex-col text-left">
@@ -142,7 +136,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/signup"
-                className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-indigo-600/20 transition-all hover:bg-indigo-700 hover:shadow-indigo-600/30"
+                className="inline-flex items-center gap-1.5 rounded-md bg-[#c2573a] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#a5452e]"
               >
                 <span>Criar conta</span>
                 <ArrowRight size={14} />
@@ -187,9 +181,9 @@ export default function Header() {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className={`rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                className={`rounded-md px-4 py-3 text-base font-medium transition-colors ${
                 isActive("/")
-                  ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-400"
+                  ? "bg-[#f8eee9] text-[#a5452e] dark:bg-[#38251f] dark:text-[#df8064]"
                   : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
               }`}
             >
@@ -198,9 +192,9 @@ export default function Header() {
             <Link
               href="/posts"
               onClick={() => setMobileMenuOpen(false)}
-              className={`rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                className={`rounded-md px-4 py-3 text-base font-medium transition-colors ${
                 isActive("/posts")
-                  ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/40 dark:text-indigo-400"
+                  ? "bg-[#f8eee9] text-[#a5452e] dark:bg-[#38251f] dark:text-[#df8064]"
                   : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
               }`}
             >
@@ -212,7 +206,7 @@ export default function Header() {
             {isAuthenticated && user ? (
               <div className="space-y-4">
                 <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-3 dark:bg-gray-900">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c2573a] text-sm font-semibold text-white">
                     {userInitials}
                   </div>
                   <div>
@@ -249,7 +243,7 @@ export default function Header() {
                 <Link
                   href="/signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-indigo-700"
+                  className="flex w-full items-center justify-center gap-2 rounded-md bg-[#c2573a] py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#a5452e]"
                 >
                   <span>Criar conta</span>
                   <ArrowRight size={15} />

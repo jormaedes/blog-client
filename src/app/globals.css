@@ -21,7 +21,17 @@ body {
   color: #f0f0eb;
 }
 
-.dark .post-content [style*="color"],
-.dark .post-content font {
-  color: #e5e7eb !important;
+.dark .post-content :is([style*="color" i], [color]):not(code):not(code *):not(pre):not(pre *) {
+  color: #d1d5db !important;
+}
+
+.dark .post-content :is(h1, h2, h3, h4, h5, h6):is([style*="color" i], [color]),
+.dark .post-content :is(h1, h2, h3, h4, h5, h6) :is([style*="color" i], [color]) {
+  color: #f0f0eb !important;
+}
+
+.dark .post-content a,
+.dark .post-content a:is([style*="color" i], [color]),
+.dark .post-content a :is([style*="color" i], [color]) {
+  color: #df8064 !important;
 }

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { LogIn, UserPlus, X, Sparkles } from "lucide-react";
+import { Heart, LogIn, UserPlus, X } from "lucide-react";
 
 interface AuthPromptModalProps {
   open: boolean;
@@ -40,7 +40,7 @@ export default function AuthPromptModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#171914]/55 p-4 backdrop-blur-[2px] animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
@@ -51,30 +51,30 @@ export default function AuthPromptModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="auth-modal-title"
-        className="w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl transition-all dark:border-gray-800 dark:bg-gray-900"
+        className="w-full max-w-md overflow-hidden rounded-md border border-gray-200 bg-[#faf9f6] shadow-2xl transition-all dark:border-gray-700 dark:bg-[#191c19]"
       >
         <div className="relative p-6 sm:p-7">
           <button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+            className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-md text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-950 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
           >
             <X size={18} />
           </button>
 
-          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400">
-            <Sparkles size={24} />
+          <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#f8eee9] text-[#a5452e] dark:bg-[#38251f] dark:text-[#df8064]">
+            <Heart size={22} strokeWidth={1.8} />
           </div>
 
           <h2
             id="auth-modal-title"
-            className="text-xl font-bold tracking-tight text-gray-900 dark:text-white"
+            className="pr-8 font-serif text-2xl leading-tight text-gray-950 dark:text-white"
           >
             {title}
           </h2>
 
-          <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+          <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
             {description}
           </p>
 
@@ -82,7 +82,7 @@ export default function AuthPromptModal({
             <Link
               href={loginHref}
               onClick={onClose}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-indigo-600/20 transition-all hover:bg-indigo-700"
+              className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#c2573a] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#a5452e]"
             >
               <LogIn size={16} />
               <span>Entrar</span>
@@ -91,7 +91,7 @@ export default function AuthPromptModal({
             <Link
               href={signupHref}
               onClick={onClose}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-750"
+              className="flex flex-1 items-center justify-center gap-2 rounded-md border border-gray-300/80 bg-white px-4 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <UserPlus size={16} />
               <span>Criar conta</span>
@@ -99,7 +99,7 @@ export default function AuthPromptModal({
           </div>
         </div>
 
-        <div className="border-t border-gray-100 bg-gray-50/70 px-6 py-3 text-center dark:border-gray-800 dark:bg-gray-900/50">
+        <div className="border-t border-gray-200 bg-[#f5f4ef] px-6 py-3 text-center dark:border-gray-800 dark:bg-[#141614]">
           <p className="text-xs text-gray-500 dark:text-gray-400">
             A leitura de todos os artigos é livre e não requer conta.
           </p>

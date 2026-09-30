@@ -5,10 +5,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowRight,
-  BookOpen,
   LockKeyhole,
   UserRound,
-  Sparkles,
 } from "lucide-react";
 import { signup } from "@/lib/api";
 
@@ -73,35 +71,28 @@ function SignupForm() {
   return (
     <div className="flex min-h-[calc(100vh-5rem)]">
       {/* Editorial side banner (desktop only) */}
-      <section className="relative hidden overflow-hidden bg-gray-900 lg:flex lg:w-1/2">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.25),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(139,92,246,0.18),transparent_40%)]" />
-
-        <div className="relative z-10 flex w-full flex-col justify-between p-12 xl:p-16">
-          <Link href="/" className="inline-flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30">
-              <BookOpen size={20} />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white">
+      <section className="hidden bg-[#e9e9e2] lg:flex lg:w-1/2 dark:bg-[#20231f]">
+        <div className="flex w-full flex-col justify-between p-12 xl:p-16">
+          <Link href="/" className="inline-flex items-center">
+            <span className="font-serif text-2xl text-gray-950 dark:text-white">
               Editorial
             </span>
           </Link>
 
           <div className="max-w-md">
-            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-950/40 px-3 py-1 text-xs font-semibold text-indigo-300">
-              <Sparkles size={12} />
-              <span>Registo de Leitor</span>
-            </div>
-
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-white xl:text-4xl">
+            <p className="text-xs font-semibold uppercase text-[#a5452e] dark:text-[#df8064]">
+              Registo de leitor
+            </p>
+            <h2 className="mt-4 font-serif text-4xl leading-tight text-gray-950 xl:text-5xl dark:text-white">
               Cria a tua conta e faz ouvir a tua voz.
             </h2>
 
-            <p className="mt-4 text-sm leading-relaxed text-gray-400">
+            <p className="mt-5 max-w-sm text-sm leading-6 text-gray-600 dark:text-gray-400">
               Junta-te a milhares de leitores apaixonados por conhecimento. Cria a tua conta gratuita para comentar e interagir em todos os artigos.
             </p>
           </div>
 
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Editorial Blog &bull; Comunidade aberta
           </p>
         </div>
@@ -112,18 +103,15 @@ function SignupForm() {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="mb-8 lg:hidden">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white">
-                <BookOpen size={18} />
-              </div>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">
+            <Link href="/" className="inline-flex items-center">
+              <span className="font-serif text-2xl text-gray-950 dark:text-white">
                 Editorial
               </span>
             </Link>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-white">
+            <h1 className="font-serif text-3xl text-gray-950 sm:text-4xl dark:text-white">
               Criar conta
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -152,7 +140,7 @@ function SignupForm() {
                   }}
                   placeholder="ex: João"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-md border border-gray-300/80 bg-white px-3.5 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:ring-2 focus:ring-[#c2573a]/15 disabled:opacity-60 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500 dark:focus:border-[#df8064]"
                 />
               </div>
 
@@ -175,7 +163,7 @@ function SignupForm() {
                   }}
                   placeholder="ex: Silva"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white px-3.5 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-md border border-gray-300/80 bg-white px-3.5 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:ring-2 focus:ring-[#c2573a]/15 disabled:opacity-60 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500 dark:focus:border-[#df8064]"
                 />
               </div>
             </div>
@@ -205,7 +193,7 @@ function SignupForm() {
                   }}
                   placeholder="ex: joaosilva"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-md border border-gray-300/80 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:ring-2 focus:ring-[#c2573a]/15 disabled:opacity-60 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500 dark:focus:border-[#df8064]"
                 />
               </div>
             </div>
@@ -235,7 +223,7 @@ function SignupForm() {
                   }}
                   placeholder="Mínimo 6 caracteres"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-md border border-gray-300/80 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:ring-2 focus:ring-[#c2573a]/15 disabled:opacity-60 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500 dark:focus:border-[#df8064]"
                 />
               </div>
             </div>
@@ -265,13 +253,13 @@ function SignupForm() {
                   }}
                   placeholder="Repete a palavra-passe"
                   disabled={isLoading}
-                  className="h-11 w-full rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800/80 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-indigo-400"
+                  className="h-11 w-full rounded-md border border-gray-300/80 bg-white pl-10 pr-4 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-[#c2573a] focus:ring-2 focus:ring-[#c2573a]/15 disabled:opacity-60 dark:border-gray-700 dark:bg-[#1b1e1b] dark:text-white dark:placeholder:text-gray-500 dark:focus:border-[#df8064]"
                 />
               </div>
             </div>
 
             {error && (
-              <div className="rounded-xl border border-red-200 bg-red-50 p-3.5 dark:border-red-950/50 dark:bg-red-950/30">
+              <div role="alert" className="border-l-2 border-red-600 bg-red-50 p-3.5 dark:border-red-400 dark:bg-red-950/30">
                 <p className="text-sm font-medium text-red-600 dark:text-red-400">
                   {error}
                 </p>
@@ -281,7 +269,7 @@ function SignupForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 text-sm font-semibold text-white shadow-sm shadow-indigo-600/20 transition-all hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-[#c2573a] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#a5452e] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <span>{isLoading ? "A criar conta..." : "Criar conta de leitor"}</span>
               {!isLoading && <ArrowRight size={16} />}
@@ -293,7 +281,7 @@ function SignupForm() {
               Já tens conta?{" "}
               <Link
                 href={`/login${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
-                className="font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                className="font-semibold text-[#a5452e] hover:text-[#853b29] dark:text-[#df8064] dark:hover:text-[#f0987c]"
               >
                 Iniciar sessão
               </Link>

@@ -4,6 +4,7 @@ import { useState, type FormEvent, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
+  ArrowLeft,
   ArrowRight,
   LockKeyhole,
   UserRound,
@@ -51,47 +52,20 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-5rem)]">
-      {/* Editorial side banner (desktop only) */}
-      <section className="hidden bg-[#e9e9e2] lg:flex lg:w-1/2 dark:bg-[#20231f]">
-        <div className="flex w-full flex-col justify-between p-12 xl:p-16">
-          <Link href="/" className="inline-flex items-center">
-            <span className="font-serif text-2xl text-gray-950 dark:text-white">
-              Editorial
-            </span>
-          </Link>
+    <div className="relative flex min-h-screen items-center justify-center px-4 py-16 sm:px-6">
+      <Link
+        href="/"
+        className="absolute left-4 top-5 inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#a5452e] sm:left-8 dark:text-gray-400 dark:hover:text-[#df8064]"
+      >
+        <ArrowLeft size={16} />
+        <span>Voltar</span>
+      </Link>
 
-          <div className="max-w-md">
-            <p className="text-xs font-semibold uppercase text-[#a5452e] dark:text-[#df8064]">
-              Comunidade de leitores
-            </p>
-            <h2 className="mt-4 font-serif text-4xl leading-tight text-gray-950 xl:text-5xl dark:text-white">
-              Acede à tua conta para comentar e interagir.
-            </h2>
-
-            <p className="mt-5 max-w-sm text-sm leading-6 text-gray-600 dark:text-gray-400">
-              Lê artigos livremente e participa nas conversas mais interessantes da comunidade, deixando os teus gostos e opiniões.
-            </p>
-          </div>
-
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Editorial Blog &bull; Leitura aberta e livre para todos
+      <section className="w-full max-w-md">
+        <div className="mb-8">
+          <p className="mb-3 font-serif text-xl text-gray-950 dark:text-white">
+            Editorial
           </p>
-        </div>
-      </section>
-
-      {/* Form section */}
-      <section className="flex w-full items-center justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:px-12">
-        <div className="w-full max-w-md">
-          {/* Mobile Logo */}
-          <div className="mb-8 lg:hidden">
-            <Link href="/" className="inline-flex items-center">
-              <span className="font-serif text-2xl text-gray-950 dark:text-white">
-                Editorial
-              </span>
-            </Link>
-          </div>
-
           <div className="mb-8">
             <h1 className="font-serif text-3xl text-gray-950 sm:text-4xl dark:text-white">
               Iniciar sessão
@@ -192,7 +166,7 @@ function LoginForm() {
             </button>
           </form>
 
-          <div className="mt-8 space-y-3 text-center text-sm">
+          <div className="mt-8 text-center text-sm">
             <p className="text-gray-600 dark:text-gray-400">
               Ainda não tens conta?{" "}
               <Link
@@ -203,14 +177,6 @@ function LoginForm() {
               </Link>
             </p>
 
-            <div>
-              <Link
-                href="/"
-                className="text-xs text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                &larr; Voltar à página principal
-              </Link>
-            </div>
           </div>
         </div>
       </section>

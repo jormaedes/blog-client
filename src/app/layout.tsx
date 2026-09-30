@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import AuthInitializer from "@/components/AuthInitializer";
 import ThemeProvider from "@/components/ThemeProvider";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import SiteChrome from "@/components/SiteChrome";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,9 +31,9 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-[#FAF9F6] text-[#20211F] antialiased selection:bg-[#c2573a] selection:text-white dark:bg-[#141614] dark:text-[#F0F0EB]">
         <ThemeProvider>
           <AuthInitializer />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <SiteChrome>
+            <main className="flex-1">{children}</main>
+          </SiteChrome>
         </ThemeProvider>
       </body>
     </html>
